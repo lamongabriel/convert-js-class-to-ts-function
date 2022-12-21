@@ -5,14 +5,25 @@ import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
 
-class ModalAddFood extends Component {
-  constructor(props) {
+import { FoodItem } from '../../@types/food';
+import { FormHandles } from '@unform/core';
+
+interface ModalAddFoodProps {
+  isOpen: boolean
+  setIsOpen: () => void
+  handleAddFood: (food: FoodItem) => void
+}
+
+class ModalAddFood extends Component<ModalAddFoodProps> {
+  formRef: React.RefObject<FormHandles>;
+
+  constructor(props: ModalAddFoodProps) {
     super(props);
 
-    this.formRef = createRef();
+    this.formRef = createRef<FormHandles>();
   }
 
-  handleSubmit = async data => {
+  handleSubmit = async (data: FoodItem) => {
     const { setIsOpen, handleAddFood } = this.props;
 
     handleAddFood(data);
